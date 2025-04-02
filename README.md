@@ -43,7 +43,43 @@ Diese Struktur trennt klar die Domäne (innen) von den technischen Details (auß
 - „Zeit erfassen“ – Ein Nutzer möchte eine neue Arbeitszeit erfassen. Dazu gibt er z. B. Startzeit, Endzeit und eine Beschreibung ein. Die Anwendung soll daraus einen Zeiteintrag erstellen und speichern.
 - „Zeiten anzeigen“ – Der Nutzer möchte bereits erfasste Arbeitszeiten einsehen. Die Anwendung soll eine Liste der gespeicherten Zeiteinträge anzeigen (z. B. alle Einträge des Tages oder der Woche).
 
+```plantUML
+@startuml
+title Use Case Diagram - Time Tracking Application
+
+actor User
+
+rectangle TimeTrackingSystem {
+  usecase "Record Time Entry" as RecordTime
+  usecase "View Time Entries" as ViewTimes
+}
+
+User --> RecordTime
+User --> ViewTimes
+
+@enduml
+```
+
+---
+
+Die Use Cases sind die zentralen Anwendungsfälle, die unser System unterstützen soll. Sie definieren die Interaktionen zwischen dem Nutzer und dem System. In unserem Beispiel sind das „Zeit erfassen“ und „Zeiten anzeigen“. Diese Use Cases sind unabhängig von der konkreten Implementierung und beschreiben nur, was der Nutzer tun möchte und was das System zurückgeben soll.
+
 Durch das klare Definieren dieser Use Cases wissen wir, welche Funktionen unser System bieten muss. Jeder Use Case wird in der Clean Architecture später durch eine eigene Interaktor-Klasse (Use-Case-Klasse) repräsentiert, die genau diese Aktion durchführt.
+
+```plantUML
+@startuml
+package "Use Cases" {
+    class RecordTimeUseCase {
+        +execute(start: LocalDateTime, end: LocalDateTime, description: String): TimeEntry
+    }
+    class ListTimeEntriesUseCase {
+        +execute(): List<TimeEntry>
+    }
+}
+@enduml
+```
+
+---
 
 ### Schritt 3: Entities implementieren
 
@@ -85,6 +121,22 @@ public class TimeEntry {
 ```
 
 Die TimeEntry-Klasse hält hier Start- und Endzeit sowie eine Beschreibung des Zeiteintrags. Eine optionale ID kann vom System vergeben werden (z. B. automatisch im Repository). In der Konstruktor-Logik könnten wir bereits Geschäftsregeln überprüfen (im Beispiel: die Endzeit darf nicht vor der Startzeit liegen). Weitere Domänenlogik ließe sich ebenfalls in Entities kapseln (z. B. Dauer eines Eintrags berechnen).
+
+```plantUML
+@startuml
+package "Entities" {
+    class TimeEntry {
+        -startTime: LocalDateTime
+        -endTime: LocalDateTime
+        -description: String
+        -id: int
+        +getStartTime(): LocalDateTime
+        +getEndTime(): LocalDateTime
+        +getDescription(): String
+    }
+}
+@enduml
+```
 
 ---
 
