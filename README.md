@@ -23,6 +23,14 @@ Wichtig: Bei Clean Architecture hängt jede Schicht nur von innen liegenden Schi
 
 ### Schritt 1: Projektstruktur einrichten
 
+```plaintext
+project-root/
+├── entities/         # Kern-Domänenmodelle und Geschäftsregeln
+├── usecases/         # Anwendungsspezifische Geschäftlogik
+├── adapters/         # Schnittstellenadapter (Repositories, Controller, Presenter)
+└── frameworks/       # Implementierungen der Infrastruktur (Datenbanken, UI, APIs)
+```
+
 - entities/ – enthält die Domänenmodelle (Entitäten) und grundlegende Geschäftslogik, z. B. eine Klasse TimeEntry für einen Zeiteintrag.
 - usecases/ – enthält die Anwendungsfall-Logik, z. B. Klassen RecordTime und ListTimeEntries für „Zeit erfassen“ und „Zeiten anzeigen“.
 - adapters/ – enthält die Schnittstellen-Adapter zwischen Kern und Außenwelt, z. B. Implementierungen eines TimeEntryRepository (Datenbankzugriff) sowie Controller/Presenter für UI oder API.
