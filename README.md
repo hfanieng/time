@@ -212,7 +212,11 @@ Bis jetzt haben wir im Code bereits angedeutet, welche Schnittstellen zwischen d
 - Ein Output-Port definiert, wie der Use Case Ergebnisse an die äußere Schicht zurückliefert. Oft wird hierfür ein Presenter-Interface verwendet, das z. B. eine Methode presentTimeEntry(TimeEntry entry) bereitstellt. Unser RecordTimeUseCase gibt den Eintrag direkt zurück, was in einfachen Fällen ausreichen kann. Alternativ könnte er output.present(entry) aufrufen – die konkrete Präsentationslogik würde dann eine Implementierung des Output-Ports im äußeren Layer übernehmen.
 - Gateways (auch Datenbank- oder API-Schnittstellen) abstrahieren den Zugriff auf externe Systeme. In unserem Fall dient TimeEntryRepository als Gateway zur Datenhaltung.
 
-Wir definieren nun explizit das Repository-Interface für Zeiteinträge. Dieses Interface gehört zur Domäne bzw. Anwendungslogik (inneren Schicht) und stellt die Methoden bereit, die wir zum Speichern und Laden von TimeEntry-Objekten brauchen. Damit wenden wir das Dependency-Inversion-Prinzip an: Die innere Schicht definiert den Vertrag, den die äußere Schicht erfüllen muss.
+---
+
+Wir definieren nun explizit das Repository-Interface für Zeiteinträge.
+
+Dieses Interface gehört zur Domäne bzw. Anwendungslogik (inneren Schicht) und stellt die Methoden bereit, die wir zum Speichern und Laden von TimeEntry-Objekten brauchen. Damit wenden wir das Dependency-Inversion-Prinzip an: Die innere Schicht definiert den Vertrag, den die äußere Schicht erfüllen muss.
 
 ```java
 // usecases/TimeEntryRepository.java  (Interface der Domäne)
@@ -227,6 +231,8 @@ public interface TimeEntryRepository {
     // Optional: weitere Methoden, z.B. findById, delete etc.
 }
 ```
+
+---
 
 Dieses Interface wird von den Use Cases verwendet, kennt aber keine Details der Implementierung. Die konkrete Speicherung (etwa in einer Datenbank oder in einer Liste) wird erst in der äußeren Schicht entschieden. Durch diese Schnittstelle bleibt unsere Geschäftslogik (Use Cases + Entities) komplett unabhängig von der Datenbank-Technologie.
 
@@ -315,7 +321,15 @@ public class TimeTrackerCLI {
 
 ```
 
-Führen wir TimeTrackerCLI.main() aus, würde das Programm einen neuen Zeiteintrag erzeugen und anschließend alle Einträge auflisten. Hier übernimmt TimeTrackerCLI die Rolle eines einfachen Controllers: Es sammelt Eingaben (in unserem Beispiel sind die Daten fest im Code vorgegeben), ruft die Geschäftslogik auf (recordTime.execute(...) und listTimes.execute()) und gibt die Ergebnisse auf der Konsole aus. Die Use Cases selbst sind dabei völlig unverändert, egal ob wir sie über eine Konsole, eine Web-API oder z. B. durch automatisierte Tests aufrufen – wir könnten anstelle der CLI auch einen REST-Controller schreiben, der die gleichen Use-Case-Methoden nutzt. Für eine Web-API würde man z. B. einen HTTP-Controller implementieren, der die eingehenden JSON-Daten in die Parameter von RecordTimeUseCase.execute umwandelt, und das Ergebnis (eine TimeEntry-Liste) wieder als JSON an den Client zurückgibt. Die Logik bleibt jedoch in den Use-Case-Klassen gekapselt, und nur die Adapter-Schicht ändert sich je nach Rahmenwerk.
+---
+
+Führen wir TimeTrackerCLI.main() aus, würde das Programm einen neuen Zeiteintrag erzeugen und anschließend alle Einträge auflisten.
+
+Hier übernimmt TimeTrackerCLI die Rolle eines einfachen **Controllers**: Es sammelt Eingaben (in unserem Beispiel sind die Daten fest im Code vorgegeben), ruft die Geschäftslogik auf (recordTime.execute(...) und listTimes.execute()) und gibt die Ergebnisse auf der Konsole aus.
+
+Die Use Cases selbst sind dabei völlig unverändert, egal ob wir sie über eine Konsole, eine Web-API oder z. B. durch automatisierte Tests aufrufen – wir könnten anstelle der CLI auch einen REST-Controller schreiben, der die gleichen Use-Case-Methoden nutzt.
+
+Für eine Web-API würde man z. B. einen HTTP-Controller implementieren, der die eingehenden JSON-Daten in die Parameter von RecordTimeUseCase.execute umwandelt, und das Ergebnis (eine TimeEntry-Liste) wieder als JSON an den Client zurückgibt. Die Logik bleibt jedoch in den Use-Case-Klassen gekapselt, und nur die Adapter-Schicht ändert sich je nach Rahmenwerk.
 
 Damit haben wir eine vollständige vertikale Scheibe unserer Zeiterfassungsanwendung umgesetzt: Von der Domäne (Entity TimeEntry), über die Anwendungsfälle (RecordTimeUseCase, ListTimeEntriesUseCase und Interface TimeEntryRepository), bis zur Infrastruktur (In-Memory-Repo und CLI als einfache UI).
 
