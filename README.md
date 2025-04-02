@@ -1,4 +1,4 @@
-# Zeiterfassungsanwendung mit Clean Architecture – Schritt-für-Schritt-Anleitung
+# Zeiterfassungsanwendung mit Clean Architecture
 
 Einführung in Clean Architecture
 
