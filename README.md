@@ -6,6 +6,8 @@ Einführung in Clean Architecture
 
 Abb. 1: Schematische Darstellung der Clean Architecture. Die innersten Kreise (gelb und rot) repräsentieren die Enterprise Business Rules (Entitäten der Domäne) und Application Business Rules (Use Cases). Darum liegen die Interface Adapters (grün), z. B. Controller, Presenter und Gateways, welche zwischen der Domäne und äußeren Systemen vermitteln. Die äußerste Schicht bilden die Frameworks & Drivers (blau) – z. B. Datenbank, UI oder externe Devices. Alle Abhängigkeits-Pfeile zeigen von außen nach innen und folgen damit dem Dependency Inversion Principle, sodass die Kernlogik nichts über die äußeren Details wissen muss.
 
+![Abbildung 1](image.png)
+
 ---
 
 Die Clean Architecture unterteilt eine Anwendung typischerweise in vier Schichten mit klar getrennten Verantwortlichkeiten:
