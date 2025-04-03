@@ -19,7 +19,7 @@ public class TimeTrackerCLI {
         System.out.println("Erfasse neuen Zeiteintrag...");
         TimeEntry neuerEintrag = recordTime.execute(
             LocalDateTime.of(2025, 4, 2, 7, 59),
-            LocalDateTime.of(2025, 4, 1, 17, 0),
+            LocalDateTime.of(2025, 4, 2, 17, 0),
             "Implementierung Clean Architecture"
         );
         System.out.println("Neuer Eintrag gespeichert: " + neuerEintrag);
