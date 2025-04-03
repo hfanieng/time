@@ -4,7 +4,21 @@ Einführung in Clean Architecture
 
 ## Schichten und ihre Aufgaben
 
-Abb. 1: Schematische Darstellung der Clean Architecture. Die innersten Kreise (gelb und rot) repräsentieren die Enterprise Business Rules (Entitäten der Domäne) und Application Business Rules (Use Cases). Darum liegen die Interface Adapters (grün), z. B. Controller, Presenter und Gateways, welche zwischen der Domäne und äußeren Systemen vermitteln. Die äußerste Schicht bilden die Frameworks & Drivers (blau) – z. B. Datenbank, UI oder externe Devices. Alle Abhängigkeits-Pfeile zeigen von außen nach innen und folgen damit dem Dependency Inversion Principle, sodass die Kernlogik nichts über die äußeren Details wissen muss.
+### Entities (Enterprise Business Rules)
+
+Diese Schicht enthält die Domänenmodelle und Kern-Geschäftsregeln. Sie ist unabhängig von äußeren Details und definiert, wie zentrale Daten (z. B. Zeiteintrag) strukturiert und validiert werden.
+
+### Use Cases (Application Business Rules)
+
+Die Use Cases orchestrieren den Datenfluss zwischen den Entitäten und steuern die Abläufe der Anwendung. Sie definieren, wie Entitäten interagieren und reagieren auf Eingaben, ohne konkrete technische Abhängigkeiten zu kennen.
+
+### Interface Adapters
+
+Hier vermitteln Controller, Presenter und Gateways zwischen der Domäne und äußeren Systemen. Sie übersetzen Datenformate und rufen beispielsweise die Use-Case-Methoden auf, um Ergebnisse für UI oder Datenbank zugänglich zu machen.
+
+### Frameworks & Drivers
+
+Die äußerste Schicht integriert externe Infrastruktur (z. B. Datenbanken, UI oder Geräte). Abhängigkeits-Pfeile zeigen stets von außen nach innen, sodass Frameworks die Kernlogik nicht beeinflussen.
 
 ![Abbildung 1](image.png)
 
