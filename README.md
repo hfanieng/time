@@ -45,22 +45,7 @@ Diese Struktur trennt klar die Domäne (innen) von den technischen Details (auß
 - „Zeit erfassen“ – Ein Nutzer möchte eine neue Arbeitszeit erfassen. Dazu gibt er z. B. Startzeit, Endzeit und eine Beschreibung ein. Die Anwendung soll daraus einen Zeiteintrag erstellen und speichern.
 - „Zeiten anzeigen“ – Der Nutzer möchte bereits erfasste Arbeitszeiten einsehen. Die Anwendung soll eine Liste der gespeicherten Zeiteinträge anzeigen (z. B. alle Einträge des Tages oder der Woche).
 
-```plantUML
-@startuml
-title Use Case Diagram - Time Tracking Application
-
-actor User
-
-rectangle TimeTrackingSystem {
-  usecase "Record Time Entry" as RecordTime
-  usecase "View Time Entries" as ViewTimes
-}
-
-User --> RecordTime
-User --> ViewTimes
-
-@enduml
-```
+![Abbildung 2](image-1.png)
 
 ---
 
@@ -68,18 +53,7 @@ Die Use Cases sind die zentralen Anwendungsfälle, die unser System unterstütze
 
 Durch das klare Definieren dieser Use Cases wissen wir, welche Funktionen unser System bieten muss. Jeder Use Case wird in der Clean Architecture später durch eine eigene Interaktor-Klasse (Use-Case-Klasse) repräsentiert, die genau diese Aktion durchführt.
 
-```plantUML
-@startuml
-package "Use Cases" {
-    class RecordTimeUseCase {
-        +execute(start: LocalDateTime, end: LocalDateTime, description: String): TimeEntry
-    }
-    class ListTimeEntriesUseCase {
-        +execute(): List<TimeEntry>
-    }
-}
-@enduml
-```
+![Abbildung 2](image-2.png)
 
 ---
 
@@ -124,21 +98,7 @@ public class TimeEntry {
 
 Die TimeEntry-Klasse hält hier Start- und Endzeit sowie eine Beschreibung des Zeiteintrags. Eine optionale ID kann vom System vergeben werden (z. B. automatisch im Repository). In der Konstruktor-Logik könnten wir bereits Geschäftsregeln überprüfen (im Beispiel: die Endzeit darf nicht vor der Startzeit liegen). Weitere Domänenlogik ließe sich ebenfalls in Entities kapseln (z. B. Dauer eines Eintrags berechnen).
 
-```plantUML
-@startuml
-package "Entities" {
-    class TimeEntry {
-        -startTime: LocalDateTime
-        -endTime: LocalDateTime
-        -description: String
-        -id: int
-        +getStartTime(): LocalDateTime
-        +getEndTime(): LocalDateTime
-        +getDescription(): String
-    }
-}
-@enduml
-```
+![Abbildung 3](image-3.png)
 
 ---
 
