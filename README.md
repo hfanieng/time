@@ -6,19 +6,19 @@ Einführung in Clean Architecture
 
 ### Entities (Enterprise Business Rules)
 
-Diese Schicht enthält die Domänenmodelle und Kern-Geschäftsregeln. Sie ist unabhängig von äußeren Details und definiert, wie zentrale Daten (z. B. Zeiteintrag) strukturiert und validiert werden.
+Diese Schicht 🟨 enthält die Domänenmodelle und Kern-Geschäftsregeln. Sie ist unabhängig von äußeren Details und definiert, wie zentrale Daten (z. B. Zeiteintrag) strukturiert und validiert werden.
 
 ### Use Cases (Application Business Rules)
 
-Die Use Cases orchestrieren den Datenfluss zwischen den Entitäten und steuern die Abläufe der Anwendung. Sie definieren, wie Entitäten interagieren und reagieren auf Eingaben, ohne konkrete technische Abhängigkeiten zu kennen.
+Die Use Cases 🟥 orchestrieren den Datenfluss zwischen den Entitäten und steuern die Abläufe der Anwendung. Sie definieren, wie Entitäten interagieren und reagieren auf Eingaben, ohne konkrete technische Abhängigkeiten zu kennen.
 
 ### Interface Adapters
 
-Hier vermitteln Controller, Presenter und Gateways zwischen der Domäne und äußeren Systemen. Sie übersetzen Datenformate und rufen beispielsweise die Use-Case-Methoden auf, um Ergebnisse für UI oder Datenbank zugänglich zu machen.
+Hier vermitteln Controller, Presenter und Gateways 🟩 zwischen der Domäne und äußeren Systemen. Sie übersetzen Datenformate und rufen beispielsweise die Use-Case-Methoden auf, um Ergebnisse für UI oder Datenbank zugänglich zu machen.
 
 ### Frameworks & Drivers
 
-Die äußerste Schicht integriert externe Infrastruktur (z. B. Datenbanken, UI oder Geräte). Abhängigkeits-Pfeile zeigen stets von außen nach innen, sodass Frameworks die Kernlogik nicht beeinflussen.
+Die äußerste Schicht integriert externe Infrastruktur (z. B. Datenbanken, UI oder Geräte) 🟦. Abhängigkeits-Pfeile zeigen stets von außen nach innen, sodass Frameworks die Kernlogik nicht beeinflussen.
 
 ![Abbildung 1](image.png)
 
